@@ -668,6 +668,28 @@ h6, .h6 { font-size: 1.0667rem; line-height: 1.25; }
 .footer-bottom .social-links { gap: 21px; }
 .footer-bottom .social-links svg { width: 22px; height: 22px; }
 
+/* "Powered by" attribution. The logo's blue reads poorly on navy, so it sits on a white chip. */
+.powered-by {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  padding: 18px 20px 22px;
+  border-top: 1px solid var(--footer-divider);
+  font-size: .8rem;
+  color: rgba(255, 255, 255, .7);
+}
+.powered-by a {
+  display: inline-flex;
+  padding: 5px 10px;
+  border-radius: 4px;
+  background: var(--white);
+  transition: opacity .2s;
+}
+.powered-by a:hover { opacity: .85; }
+.powered-by img { width: auto; height: 18px; }
+
 /* 15. WhatsApp ------------------------------------------------------------ */
 .whatsapp-float {
   position: fixed;
@@ -872,7 +894,7 @@ h6, .h6 { font-size: 1.0667rem; line-height: 1.25; }
 .custom-cta a { display: inline-block; background: #fff; color: #2e78d2; padding: 18px 36px; border-radius: 12px; font-size: 18px; font-weight: 700; }
 
 /* Get A Quote page (custom block on the live site: Poppins + black/yellow) */
-.quote-page { background: #fffdf5; color: #222; line-height: 1.6; }
+.quote-page { padding: 0 10px 10px; background: #fffdf5; color: #222; font-family: 'Poppins', sans-serif; line-height: 1.6; }   /* 10px: Elementor container padding around the block */
 .quote-hero {
   width: 100%;
   min-height: 90vh;
@@ -909,6 +931,7 @@ h6, .h6 { font-size: 1.0667rem; line-height: 1.25; }
   font-family: 'Poppins', sans-serif;
   color: #222;
   background: #fff;
+  line-height: 1.65;
   outline: none;
 }
 .form-group input:focus,
@@ -918,13 +941,14 @@ h6, .h6 { font-size: 1.0667rem; line-height: 1.25; }
 .form-group.has-error input,
 .form-group.has-error select { border-color: #dc2626; }
 .form-group .field-error { color: #b91c1c; }
-.submit-btn { width: 100%; background: #f4b400; color: #111; border: 0; padding: 16px; border-radius: 8px; font-size: 16px; font-weight: 600; transition: .3s; }
+.submit-btn { width: 100%; background: #f4b400; color: #111; border: 0; padding: 16px; border-radius: 8px; font-size: 16px; font-weight: 600; line-height: 1; transition: .3s; }
 .submit-btn:hover { background: #ffcc29; }
 .quote-page .form-status.is-error { background: #fef2f2; border-color: #fecaca; color: #991b1b; }
 .quote-page .form-status.is-info { background: #fffbeb; border: 1px solid #fde68a; color: #78350f; }
 .quote-page .form-status a { text-decoration: underline; font-weight: 600; }
 
 .q-section { padding: 80px 20px; }
+.q-section--white { background: #fff; }
 .q-container { max-width: 1200px; margin: auto; }
 .q-title { text-align: center; margin-bottom: 50px; }
 .q-title h2 { font-size: 42px; line-height: 1.3; margin-bottom: 10px; color: #222; }
@@ -932,7 +956,9 @@ h6, .h6 { font-size: 1.0667rem; line-height: 1.25; }
 .features { display: grid; grid-template-columns: repeat(4, 1fr); gap: 25px; }
 .feature-box { background: #fff; padding: 35px 25px; border-radius: 14px; text-align: center; box-shadow: 0 5px 20px rgba(0, 0, 0, .08); transition: .3s; }
 .feature-box:hover { transform: translateY(-5px); }
-.feature-box h3 { font-size: 1.17em; line-height: 1.3; color: #222; margin-bottom: 8px; }
+.feature-box h3 { color: #222; margin-bottom: 20px; }   /* Astra h3 size and margin apply on the live page */
+.feature-box p,
+.service-box p { margin-bottom: 1.6em; }
 .feature-icon {
   width: 70px; height: 70px;
   background: #f4b400;
@@ -943,7 +969,7 @@ h6, .h6 { font-size: 1.0667rem; line-height: 1.25; }
 }
 .q-services { display: grid; grid-template-columns: repeat(3, 1fr); gap: 25px; }
 .service-box { background: #111; color: #fff; padding: 35px; border-radius: 14px; }
-.service-box h3 { font-size: 1.17em; line-height: 1.3; margin-bottom: 15px; color: #f4b400; }
+.service-box h3 { margin-bottom: 15px; color: #f4b400; }
 .q-cta { background: #111; padding: 80px 20px; text-align: center; }
 .q-cta h2 { color: #fff; font-size: 42px; line-height: 1.3; margin-bottom: 20px; }
 .q-cta p { color: #ccc; margin-bottom: 30px; }
@@ -1116,6 +1142,8 @@ h6, .h6 { font-size: 1.0667rem; line-height: 1.25; }
   .footer-title { margin-bottom: 30px; }
   .footer-col p + p { margin-top: 30px; }
   .footer-bottom .footer-row { flex-direction: column; justify-content: center; gap: 16px; text-align: center; }
+  .powered-by { gap: 8px; padding-bottom: 20px; }
+  .powered-by img { height: 16px; }
 
   .about-intro { padding: 50px 25px; }
   .about-stats { padding: 50px 25px; }

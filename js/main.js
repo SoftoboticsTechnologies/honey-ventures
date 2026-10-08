@@ -224,7 +224,7 @@
   });
 
   /* ---------------------------------------------------------------------
-   * "Get A Free Quote" form (contact.html).
+   * "Get A Free Quote" form (contact/index.html).
    * On the live site this form posts to mail.php, which does not exist
    * (the request is rejected), so there is no working backend to keep.
    * Set data-endpoint on the form to a real handler to enable sending;
