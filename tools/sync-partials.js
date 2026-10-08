@@ -13,6 +13,10 @@
  *   <!-- @footer:start --> … <!-- @footer:end -->
  * and declare their nav entry with <body data-page="…">, which becomes
  * aria-current="page" on the matching nav links.
+ *
+ * Pages may also live one folder down as <folder>/index.html (e.g.
+ * projects/index.html, served at /projects/). The partials' relative URLs
+ * are written from the site root, so they get a "../" prefix there.
  */
 const fs = require('fs');
 const path = require('path');
@@ -24,13 +28,38 @@ const partials = {
   footer: read('partials/footer.html').trim(),
 };
 
-const pages = fs.readdirSync(root).filter((f) => f.endsWith('.html'));
+const SKIP_DIRS = new Set(['.git', 'assets', 'css', 'js', 'partials', 'tools', 'node_modules']);
+const pages = [];
+for (const entry of fs.readdirSync(root, { withFileTypes: true })) {
+  if (entry.isFile() && entry.name.endsWith('.html')) pages.push(entry.name);
+  else if (entry.isDirectory() && !SKIP_DIRS.has(entry.name)
+    && fs.existsSync(path.join(root, entry.name, 'index.html'))) {
+    pages.push(`${entry.name}/index.html`);
+  }
+}
+
+// Prefixes the partials' relative URLs (href, src, srcset) for nested pages.
+const isRelative = (url) => !/^(?:[a-z][a-z0-9+.-]*:|\/|#)/i.test(url);
+function prefixUrls(markup, prefix) {
+  if (!prefix) return markup;
+  return markup
+    .replace(/(?<![\w-])(href|src)="([^"]*)"/g, (m, attr, url) =>
+      url && isRelative(url) ? `${attr}="${prefix}${url}"` : m)
+    .replace(/(?<![\w-])srcset="([^"]*)"/g, (m, list) =>
+      `srcset="${list.split(',').map((part) => {
+        const item = part.trim();
+        return isRelative(item) ? prefix + item : item;
+      }).join(', ')}"`);
+}
+
 let changed = 0;
 
 for (const file of pages) {
   const full = path.join(root, file);
   const before = fs.readFileSync(full, 'utf8');
   const page = (before.match(/<body[^>]*data-page="([^"]+)"/) || [])[1];
+
+  const prefix = '../'.repeat(file.split('/').length - 1);
 
   let html = before;
   for (const [name, markup] of Object.entries(partials)) {
@@ -39,7 +68,7 @@ for (const file of pages) {
       console.warn(`! ${file}: missing @${name} markers, skipped`);
       continue;
     }
-    let block = markup;
+    let block = prefixUrls(markup, prefix);
     if (page) {
       block = block.replace(
         new RegExp(`data-page="${page}"`, 'g'),

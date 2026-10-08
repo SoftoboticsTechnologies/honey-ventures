@@ -303,6 +303,10 @@ h6, .h6 { font-size: 1.0667rem; line-height: 1.25; }
   text-align: center;
 }
 .page-banner h1 { color: var(--white); }
+.page-banner--projects { background-image: url("../assets/images/pages/about-us.jpg"); }
+.page-banner--services,
+.page-banner--about { background-image: url("../assets/images/pages/services-banner.jpg"); }
+.page-banner--contact { background-image: url("../assets/images/pages/page-header.jpg"); }
 .page-banner--dark-title h1 { color: #111010; }   /* as set on the live Contact Us page */
 
 /* 6. Stats ---------------------------------------------------------------- */
@@ -688,7 +692,7 @@ h6, .h6 { font-size: 1.0667rem; line-height: 1.25; }
 .about-intro .col { width: 50%; }
 .about-intro .eyebrow { margin-bottom: 20px; }
 .about-intro h2 { margin-bottom: 20px; }
-.about-intro .col p + p { margin-top: 24px; }
+.about-intro .col > p:not(.eyebrow) { margin-bottom: 1.6em; }   /* Astra paragraph spacing, last one included */
 .about-intro .col--features { padding-left: 100px; display: flex; flex-direction: column; justify-content: center; }
 
 .icon-box { display: flex; align-items: flex-start; gap: 30px; }
@@ -706,12 +710,13 @@ h6, .h6 { font-size: 1.0667rem; line-height: 1.25; }
 }
 .icon-box .icon svg { width: 25px; height: 25px; fill: currentColor; }
 .icon-box h3 { margin-bottom: 7px; }
+.icon-box > div { flex: 1; min-width: 0; }
 
 .about-stats {
   padding: 100px var(--gutter);
-  background-image: url("../assets/images/hero-bg.jpg");
+  background-image: url("../assets/images/pages/services-banner.jpg");
 }
-.about-stats .container { display: flex; padding: 0; }
+.about-stats .container { display: flex; align-items: flex-start; padding: 0; }
 .about-stats .icon-box { width: 25%; margin: 0; }
 .about-stats .stat-num {
   font-family: var(--font-heading);
@@ -738,15 +743,17 @@ h6, .h6 { font-size: 1.0667rem; line-height: 1.25; }
   background: var(--white);
   border-radius: 15px;
 }
-.expert img { width: 100%; border-radius: 5%; }
+.expert img { width: 100%; margin-bottom: 10px; border-radius: 5%; }
 .expert-body { padding: 20px 10px; }
 .expert-body h3 { font-size: 1.3333rem; line-height: 1.2; }
-.expert-body p { font-size: 15px; }
+.expert-body p { font-size: 15px; line-height: 1.65rem; }
 
 .split--about .split-half { padding: 100px 0; }
 .split--about .split-dark h2 { margin-bottom: 0; }
-.split--about .split-dark .btn { margin-top: 50px; }
+.split--about .split-dark .btn { margin-top: 70px; }   /* 50px widget padding + 20px widget gap */
 .split--about .split-gold h3 { margin-bottom: 0; }
+.split--about .icon-list { margin-top: 30px; }
+.split--about .icon-list li { line-height: 1.65rem; }   /* body line-height, so it scales with the tablet type size */
 
 /* Contact Us */
 .contact-details { padding: 100px var(--gutter); background: var(--white); }
@@ -756,21 +763,29 @@ h6, .h6 { font-size: 1.0667rem; line-height: 1.25; }
 .contact-info { width: 33.3%; padding: 20px; }
 .contact-info h3 { margin-bottom: 20px; }
 .contact-info h4 { margin-bottom: 7px; }
-.contact-block + .contact-block { padding-top: 20px; }
-.contact-block:nth-of-type(2) { padding-bottom: 20px; }
-.contact-info .btn { margin-top: 30px; }
+.contact-block + .contact-block { margin-top: 20px; }   /* Elementor's 20px widget gap */
+.contact-block:nth-of-type(2) { padding: 20px 0; }
+.contact-info .btn { margin-top: 50px; }   /* 30px widget padding + 20px widget gap */
 .contact-map { width: 66.67%; }
 .contact-map iframe { display: block; width: 100%; height: 475px; border: 0; filter: saturate(0); }
 .contact-divider { margin-top: 50px; padding: 15px 0; }
 .contact-divider hr { margin: 0; border: 0; border-top: 1px solid #ddd6d6; }
 
-/* Services / Projects pages (custom blocks on the live site: Poppins + blue) */
-.hv-custom { font-family: 'Poppins', sans-serif; }
-.hv-custom h1, .hv-custom h2, .hv-custom h3 { font-family: 'Poppins', sans-serif; }
-
+/* Services / Projects pages (custom HTML blocks on the live site: Poppins + blue).
+   Headings keep Astra's Montserrat 700, as the blocks don't set a heading font. */
 .services-page,
-.projects-page { width: 100%; background: #f8fafc; padding: 100px 20px; }
-.services-container { width: 100%; max-width: 1200px; margin: auto; }
+.projects-page {
+  margin: 10px;               /* Elementor's default 10px container padding around the block */
+  padding: 100px 20px;
+  background: #f8fafc;
+  font-family: 'Poppins', sans-serif;
+  line-height: 1.65rem;       /* Astra's body line-height (1.65em) inherits as a fixed length */
+}
+.services-page {              /* Services sits in a boxed Elementor container (1200px) */
+  max-width: 1200px;
+  margin-inline: max(10px, calc((100% - 1200px) / 2));
+}
+.services-container { width: 100%; max-width: 1450px; margin: auto; }
 
 .custom-hero { text-align: center; margin-bottom: 90px; }
 .custom-badge {
@@ -816,7 +831,7 @@ h6, .h6 { font-size: 1.0667rem; line-height: 1.25; }
 }
 .custom-card h3 { font-size: 30px; line-height: 1.3; color: #0d1b6f; margin-bottom: 18px; font-weight: 700; }
 .custom-card p { color: #4b5563; font-size: 16px; line-height: 1.8; margin-bottom: 25px; }
-.custom-card ul { margin-bottom: 30px; }
+.custom-card ul { margin: 0 0 30px 3em; }   /* Astra's list indent applies on the live page */
 .custom-card li { margin-bottom: 14px; color: #111827; font-size: 16px; }
 .custom-card .card-btn {
   display: inline-block;
@@ -829,11 +844,16 @@ h6, .h6 { font-size: 1.0667rem; line-height: 1.25; }
 }
 .custom-card .card-btn:hover { background: #0d1b6f; }
 
-.projects-page .custom-card { border-radius: 24px; }
+.projects-page .services-container { max-width: 1400px; }
+.projects-page .custom-card { border-radius: 24px; box-shadow: 0 10px 30px rgba(0, 0, 0, .06); }
 .projects-page .custom-card:hover { transform: translateY(-8px); }
 .projects-page .custom-card-body { padding: 28px; }
 .projects-page .custom-card h3 { font-size: 28px; margin-bottom: 15px; }
-.projects-page .custom-card p { margin-bottom: 0; }
+.projects-page .custom-card img { height: 260px; }          /* not reduced on mobile, unlike Services */
+.projects-page .custom-card p,
+.projects-page .process-box p { margin-bottom: 1.6em; }   /* Astra's .entry-content p margin leaks into the live block */
+.projects-page .custom-card p { font-size: 16px; }
+.projects-page .custom-section-title h2 { line-height: 1.3; }
 
 .custom-section-title { text-align: center; margin-bottom: 50px; }
 .custom-section-title span { color: #2e78d2; font-weight: 600; font-size: 15px; }
@@ -847,7 +867,7 @@ h6, .h6 { font-size: 1.0667rem; line-height: 1.25; }
 .process-box p { color: #0d1b6f; font-size: 18px; font-weight: 500; }
 
 .custom-cta { background: #2e78d2; padding: 70px; border-radius: 30px; text-align: center; color: #fff; }
-.custom-cta h2 { font-size: 58px; line-height: 1.3; margin-bottom: 20px; font-weight: 800; color: #fff; }
+.custom-cta h2 { font-size: 58px; line-height: 1.3; margin-bottom: 20px; font-weight: 800; color: var(--navy); }   /* no colour set in the live block, so Astra's navy applies */
 .custom-cta p { max-width: 850px; margin: 0 auto 35px; font-size: 20px; line-height: 1.8; }
 .custom-cta a { display: inline-block; background: #fff; color: #2e78d2; padding: 18px 36px; border-radius: 12px; font-size: 18px; font-weight: 700; }
 
@@ -987,19 +1007,23 @@ h6, .h6 { font-size: 1.0667rem; line-height: 1.25; }
   .about-intro .col { width: 100%; }
   .about-intro .col--features { padding: 50px 0 0; }
   .about-stats { padding: 80px 40px; }
-  .about-stats .container { flex-wrap: wrap; row-gap: 30px; }
-  .about-stats .icon-box { width: 50%; }
+  .about-stats .container { padding: 0; }
+  .about-intro .col--features .icon-box { max-width: 491px; }
+  .about-intro .col--features .icon-box:nth-child(2) { padding: 20px 0; }
   .experts { padding: 80px 30px; }
-  .expert-grid { grid-template-columns: repeat(3, 1fr); }
+  .expert-grid { grid-template-columns: repeat(2, 1fr); }
   .split--about .split-half { padding: 50px; }
 
   .contact-details { padding: 60px 30px; }
+  .contact-details .container { padding-inline: 0; }
   .contact-layout { flex-direction: column; }
   .contact-info,
   .contact-map { width: 100%; padding: 0; }
+  .contact-info { width: 50%; }
   .contact-map { padding-top: 30px; }
 
   .page-banner { padding: 200px var(--gutter) 50px; }
+  .page-banner--about { padding-bottom: 100px; padding-top: 150px; }
 }
 
 @media (max-width: 1100px) {
@@ -1095,17 +1119,28 @@ h6, .h6 { font-size: 1.0667rem; line-height: 1.25; }
 
   .about-intro { padding: 50px 25px; }
   .about-stats { padding: 50px 25px; }
-  .about-stats .icon-box { width: 100%; gap: 10px; }
-  .icon-box { gap: 10px; }
-  .experts { padding: 60px 15px; }
-  .expert-grid { grid-template-columns: 1fr 1fr; }
+  .about-stats .container { flex-direction: column; }
+  .about-stats .icon-box { width: 100%; }
+  .about-stats .icon-box:first-child { padding: 20px 0; }
+  .about-stats .icon-box:nth-child(2) { padding-bottom: 20px; }
+  .icon-box { flex-direction: column; gap: 10px; }   /* icon above the text on mobile */
+  .expert-grid { grid-template-columns: 1fr; }
   .expert { margin: 10px; }
   .split--about .split-half { padding: 30px; }
 
   .contact-details { padding: 50px 25px; }
+  .contact-info { width: 100%; }
 
   .page-banner { padding: 140px var(--gutter) 50px; }
+  .page-banner--projects,
+  .page-banner--services,
+  .page-banner--about,
+  .page-banner--contact { padding-top: 100px; }
+  .page-banner--about { padding-bottom: 50px; }
+}
 
+/* Services / Projects custom blocks switch to mobile at 768px on the live site */
+@media (max-width: 768px) {
   .services-page,
   .projects-page { padding: 70px 15px; }
   .custom-hero { margin-bottom: 60px; }
