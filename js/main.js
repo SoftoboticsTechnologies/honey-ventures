@@ -36,6 +36,109 @@
   }
 
   /* ---------------------------------------------------------------------
+   * Homepage hero — crossfading background slider.
+   * The first slide is in the markup (and preloaded); the others carry
+   * data-bg and are loaded once the page has finished loading. A slide is
+   * only shown after its image has decoded, so there's never a blank frame.
+   * Autoplay pauses while the controls are hovered or anything in the hero
+   * has keyboard focus, when the tab is hidden, via the pause
+   * button, and never starts for prefers-reduced-motion.
+   * ------------------------------------------------------------------- */
+  document.querySelectorAll('[data-hero-slider]').forEach(function (hero) {
+    var slides = Array.prototype.slice.call(hero.querySelectorAll('.hero-slide'));
+    var controls = hero.querySelector('.hero-controls');
+    var dots = Array.prototype.slice.call(hero.querySelectorAll('.hero-dots button'));
+    var pauseBtn = hero.querySelector('.hero-pause');
+    if (slides.length < 2 || !controls) return;
+
+    var DELAY = 5500;
+    var current = 0;
+    var timer = null;
+    var userPaused = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    var hovering = false;
+    var loaded = slides.map(function (s) { return !s.hasAttribute('data-bg'); });
+
+    function load(i) {
+      if (loaded[i]) return Promise.resolve();
+      var url = slides[i].getAttribute('data-bg');
+      return new Promise(function (resolve) {
+        var img = new Image();
+        img.onload = img.onerror = function () {
+          slides[i].style.backgroundImage = "url('" + url + "')";
+          slides[i].removeAttribute('data-bg');
+          loaded[i] = true;
+          resolve();
+        };
+        img.src = url;
+      });
+    }
+
+    function show(i) {
+      i = (i + slides.length) % slides.length;
+      if (i === current) return;
+      load(i).then(function () {
+        slides[current].classList.remove('is-active');
+        slides[i].classList.add('is-active');
+        dots.forEach(function (d, n) {
+          if (n === i) d.setAttribute('aria-current', 'true'); else d.removeAttribute('aria-current');
+        });
+        current = i;
+        load((i + 1) % slides.length);   // warm the next one
+      });
+    }
+
+    function stop() { clearInterval(timer); timer = null; }
+    function start() {
+      stop();
+      if (userPaused || hovering || document.hidden) return;
+      timer = setInterval(function () { show(current + 1); }, DELAY);
+    }
+    function restart() { if (timer) start(); }
+
+    function syncPauseButton() {
+      if (!pauseBtn) return;
+      pauseBtn.setAttribute('aria-pressed', String(userPaused));
+      pauseBtn.setAttribute('aria-label', userPaused ? 'Play slideshow' : 'Pause slideshow');
+    }
+
+    controls.hidden = false;
+    hero.querySelector('.hero-arrow--prev').addEventListener('click', function () { show(current - 1); restart(); });
+    hero.querySelector('.hero-arrow--next').addEventListener('click', function () { show(current + 1); restart(); });
+    dots.forEach(function (dot, n) {
+      dot.addEventListener('click', function () { show(n); restart(); });
+    });
+    if (pauseBtn) {
+      pauseBtn.addEventListener('click', function () {
+        userPaused = !userPaused;
+        syncPauseButton();
+        start();
+      });
+    }
+    hero.addEventListener('keydown', function (e) {
+      if (!e.target.closest('.hero-controls')) return;
+      if (e.key === 'ArrowLeft') { e.preventDefault(); show(current - 1); restart(); }
+      else if (e.key === 'ArrowRight') { e.preventDefault(); show(current + 1); restart(); }
+    });
+    controls.addEventListener('mouseenter', function () { hovering = true; stop(); });
+    controls.addEventListener('mouseleave', function () { hovering = false; start(); });
+    hero.addEventListener('focusin', function (e) {
+      // Mouse clicks focus buttons too; only keyboard focus should hold the slide.
+      if (e.target.matches(':focus-visible')) { hovering = true; stop(); }
+    });
+    hero.addEventListener('focusout', function (e) {
+      if (!hero.contains(e.relatedTarget)) { hovering = false; start(); }
+    });
+    document.addEventListener('visibilitychange', function () {
+      if (document.hidden) stop(); else start();
+    });
+
+    syncPauseButton();
+    function begin() { load(1); start(); }
+    if (document.readyState === 'complete') begin();
+    else window.addEventListener('load', begin);
+  });
+
+  /* ---------------------------------------------------------------------
    * FAQ accordion — one panel open at a time, first open by default
    * (matches the Elementor accordion on the live site).
    * ------------------------------------------------------------------- */

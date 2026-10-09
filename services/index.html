@@ -31,12 +31,12 @@
 <!-- @header:start -->
 <a class="skip-link" href="#content">Skip to content</a>
 <header class="site-header" id="masthead">
-  <!-- Desktop header (≥ 922px) -->
-  <div class="header-top">
-    <div class="header-row">
-      <a class="site-logo" href="../index.html" aria-label="Honey Ventures — Home">
-        <img src="../assets/logos/honey-ventures-logo-139x93.png" srcset="../assets/logos/honey-ventures-logo-139x93.png 1x, ../assets/logos/honey-ventures-logo-300x200.png 2x" width="139" height="93" alt="Honey Ventures — The Future of Your Dreams">
-      </a>
+  <!-- Desktop header (≥ 922px): logo on the left; utility row (call + social) above the nav row -->
+  <div class="header-inner">
+    <a class="site-logo" href="../index.html" aria-label="Honey Ventures — Home">
+      <img src="../assets/logos/honey-ventures-logo-139x93.png" srcset="../assets/logos/honey-ventures-logo-139x93.png 1x, ../assets/logos/honey-ventures-logo-300x200.png 2x" width="139" height="93" alt="Honey Ventures — The Future of Your Dreams">
+    </a>
+    <div class="header-top">
       <p class="header-call">Make a call: +91 <a href="tel:+919880902002">98809 02002</a></p>
       <div class="social-links">
         <!-- The live site's Facebook icon has an empty link (href=""); no Facebook URL exists in the source. -->
@@ -44,9 +44,7 @@
         <a href="https://www.instagram.com/honeyventures150125/" target="_blank" rel="noopener" aria-label="Honey Ventures on Instagram"><svg viewBox="0 0 448 512" aria-hidden="true"><path d="M224,202.66A53.34,53.34,0,1,0,277.36,256,53.38,53.38,0,0,0,224,202.66Zm124.71-41a54,54,0,0,0-30.41-30.41c-21-8.29-71-6.43-94.3-6.43s-73.25-1.93-94.31,6.43a54,54,0,0,0-30.41,30.41c-8.28,21-6.43,71.05-6.43,94.33S91,329.26,99.32,350.33a54,54,0,0,0,30.41,30.41c21,8.29,71,6.43,94.31,6.43s73.24,1.93,94.3-6.43a54,54,0,0,0,30.41-30.41c8.35-21,6.43-71.05,6.43-94.33S357.1,182.74,348.75,161.67ZM224,338a82,82,0,1,1,82-82A81.9,81.9,0,0,1,224,338Zm85.38-148.3a19.14,19.14,0,1,1,19.13-19.14A19.1,19.1,0,0,1,309.42,189.74ZM400,32H48A48,48,0,0,0,0,80V432a48,48,0,0,0,48,48H400a48,48,0,0,0,48-48V80A48,48,0,0,0,400,32ZM382.88,322c-1.29,25.63-7.14,48.34-25.85,67s-41.4,24.63-67,25.85c-26.41,1.49-105.59,1.49-132,0-25.63-1.29-48.26-7.15-67-25.85s-24.63-41.42-25.85-67c-1.49-26.42-1.49-105.61,0-132,1.29-25.63,7.07-48.34,25.85-67s41.47-24.56,67-25.78c26.41-1.49,105.59-1.49,132,0,25.63,1.29,48.33,7.15,67,25.85s24.63,41.42,25.85,67.05C384.37,216.44,384.37,295.56,382.88,322Z"/></svg></a>
       </div>
     </div>
-  </div>
-  <div class="header-main">
-    <div class="header-row">
+    <div class="header-main">
       <nav class="main-nav" aria-label="Primary">
         <ul>
           <li><a href="../index.html" data-page="home">Home</a></li>
@@ -56,7 +54,7 @@
           <li><a href="../contact-us/index.html" data-page="contact-us">Contact Us</a></li>
         </ul>
       </nav>
-      <a class="btn header-cta" href="../contact/index.html">Get A Quote</a>
+      <a class="btn header-cta" href="../contact/index.html" data-page="contact">Get A Quote</a>
     </div>
   </div>
 
@@ -79,6 +77,10 @@
         <li><a href="../about/index.html" data-page="about">About</a></li>
         <li><a href="../contact-us/index.html" data-page="contact-us">Contact Us</a></li>
       </ul>
+      <div class="mobile-menu-footer">
+        <a class="btn" href="../contact/index.html" data-page="contact">Get A Quote</a>
+        <p class="header-call">Make a call: +91 <a href="tel:+919880902002">98809 02002</a></p>
+      </div>
     </nav>
   </div>
 </header>
@@ -205,10 +207,16 @@
 <footer class="site-footer">
   <div class="footer-main">
     <div class="footer-grid">
-      <div class="footer-col">
-        <h2 class="footer-title">Build Your Future With Honey Ventures</h2>
+      <div class="footer-col footer-col--brand">
+        <a class="footer-logo" href="../index.html" aria-label="Honey Ventures — Home">
+          <img src="../assets/logos/honey-ventures-logo-139x93.png" srcset="../assets/logos/honey-ventures-logo-139x93.png 1x, ../assets/logos/honey-ventures-logo-300x200.png 2x" width="139" height="93" alt="Honey Ventures — The Future of Your Dreams" loading="lazy">
+        </a>
+        <h2 class="footer-title footer-title--brand">Build Your Future With Honey Ventures</h2>
         <p>Honey Ventures is your trusted real estate partner for buying, selling, and investing in premium residential and commercial properties across Bengaluru.</p>
-        <p><strong>Mon – Sat:</strong> 9:00 AM – 7:00 PM<br>Sunday - CLOSED</p>
+        <div class="footer-hours">
+          <svg class="footer-icon" viewBox="0 0 512 512" aria-hidden="true"><path d="M256,8C119,8,8,119,8,256S119,504,256,504,504,393,504,256,393,8,256,8Zm92.49,313h0l-20,25a16,16,0,0,1-22.49,2.5h0l-67-49.72a40,40,0,0,1-15-31.23V112a16,16,0,0,1,16-16h32a16,16,0,0,1,16,16V256l58,42.5A16,16,0,0,1,348.49,321Z"/></svg>
+          <p><strong>Mon – Sat:</strong> 9:00 AM – 7:00 PM<br>Sunday - CLOSED</p>
+        </div>
       </div>
       <div class="footer-col">
         <h2 class="footer-title">Our Services</h2>
@@ -224,29 +232,35 @@
       </div>
       <div class="footer-col">
         <h2 class="footer-title">Office in Bangalore</h2>
-        <address>
-          <p> 2nd floor, GK Shivaswamy Complex, 861, 80, 6th Cross Rd, Koramangala 8th Block, Bengaluru, Karnataka 560095</p>
-        </address>
+        <div class="footer-contact">
+          <svg class="footer-icon" viewBox="0 0 384 512" aria-hidden="true"><path d="M172.268 501.67C26.97 291.031 0 269.413 0 192 0 85.961 85.961 0 192 0s192 85.961 192 192c0 77.413-26.97 99.031-172.268 309.67-9.535 13.774-29.93 13.773-39.464 0zM192 272c44.183 0 80-35.817 80-80s-35.817-80-80-80-80 35.817-80 80 35.817 80 80 80z"/></svg>
+          <address>
+            <p>2nd floor, GK Shivaswamy Complex,<br>861, 80, 6th Cross Rd, Koramangala<br>8th Block, Bengaluru, Karnataka<br>560095</p>
+          </address>
+        </div>
       </div>
       <div class="footer-col">
         <h2 class="footer-title">Contact Us</h2>
-        <p><a href="tel:09880902002">098809 02002</a></p>
+        <a class="footer-contact footer-phone" href="tel:09880902002">
+          <svg class="footer-icon" viewBox="0 0 512 512" aria-hidden="true"><path d="M497.39 361.8l-112-48a24 24 0 0 0-28 6.9l-49.6 60.6A370.66 370.66 0 0 1 130.6 204.11l60.6-49.6a23.94 23.94 0 0 0 6.9-28l-48-112A24.16 24.16 0 0 0 122.6.61l-104 24A24 24 0 0 0 0 48c0 256.5 207.9 464 464 464a24 24 0 0 0 23.4-18.6l24-104a24.29 24.29 0 0 0-14.01-27.6z"/></svg>
+          <span>098809 02002</span>
+        </a>
       </div>
     </div>
   </div>
   <div class="footer-bottom">
     <div class="footer-row">
-      <p>Copyright © 2026 Honey Venture</p>
+      <p class="footer-copyright">Copyright © 2026 Honey Venture</p>
       <div class="social-links">
         <!-- The live site's Facebook icon has an empty link (href=""); no Facebook URL exists in the source. -->
         <span aria-hidden="true" title="Facebook"><svg viewBox="0 0 448 512"><path d="M400 32H48A48 48 0 0 0 0 80v352a48 48 0 0 0 48 48h137.25V327.69h-63V256h63v-54.64c0-62.15 37-96.48 93.67-96.48 27.14 0 55.52 4.84 55.52 4.84v61h-31.27c-30.81 0-40.42 19.12-40.42 38.73V256h68.78l-11 71.69h-57.78V480H400a48 48 0 0 0 48-48V80a48 48 0 0 0-48-48z"/></svg></span>
         <a href="https://www.instagram.com/honeyventures150125/" target="_blank" rel="noopener" aria-label="Honey Ventures on Instagram"><svg viewBox="0 0 448 512" aria-hidden="true"><path d="M224,202.66A53.34,53.34,0,1,0,277.36,256,53.38,53.38,0,0,0,224,202.66Zm124.71-41a54,54,0,0,0-30.41-30.41c-21-8.29-71-6.43-94.3-6.43s-73.25-1.93-94.31,6.43a54,54,0,0,0-30.41,30.41c-8.28,21-6.43,71.05-6.43,94.33S91,329.26,99.32,350.33a54,54,0,0,0,30.41,30.41c21,8.29,71,6.43,94.31,6.43s73.24,1.93,94.3-6.43a54,54,0,0,0,30.41-30.41c8.35-21,6.43-71.05,6.43-94.33S357.1,182.74,348.75,161.67ZM224,338a82,82,0,1,1,82-82A81.9,81.9,0,0,1,224,338Zm85.38-148.3a19.14,19.14,0,1,1,19.13-19.14A19.1,19.1,0,0,1,309.42,189.74ZM400,32H48A48,48,0,0,0,0,80V432a48,48,0,0,0,48,48H400a48,48,0,0,0,48-48V80A48,48,0,0,0,400,32ZM382.88,322c-1.29,25.63-7.14,48.34-25.85,67s-41.4,24.63-67,25.85c-26.41,1.49-105.59,1.49-132,0-25.63-1.29-48.26-7.15-67-25.85s-24.63-41.42-25.85-67c-1.49-26.42-1.49-105.61,0-132,1.29-25.63,7.07-48.34,25.85-67s41.47-24.56,67-25.78c26.41-1.49,105.59-1.49,132,0,25.63,1.29,48.33,7.15,67,25.85s24.63,41.42,25.85,67.05C384.37,216.44,384.37,295.56,382.88,322Z"/></svg></a>
       </div>
+      <div class="powered-by">
+        <span>Powered by</span>
+        <a href="https://www.dripfunnel.com/in/" target="_blank" rel="noopener noreferrer" aria-label="DripFunnel (opens in a new tab)"><img src="../assets/logos/dripfunnel-logo.png" alt="DripFunnel" width="845" height="143" loading="lazy"></a>
+      </div>
     </div>
-  </div>
-  <div class="powered-by">
-    <span>Powered by</span>
-    <a href="https://www.dripfunnel.com/in/" target="_blank" rel="noopener noreferrer" aria-label="DripFunnel"><img src="../assets/logos/dripfunnel-logo.png" alt="DripFunnel" width="845" height="143" loading="lazy"></a>
   </div>
 </footer>
 
